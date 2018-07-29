@@ -21,6 +21,8 @@
         'ui.load',
         'ui.jp',
         'oc.lazyLoad',
-        'toaster'
+        'treasure-overlay-spinner',
+        'toaster',
+        'ngCookies'
       ]);
 })();

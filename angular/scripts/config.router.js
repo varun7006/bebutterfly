@@ -498,7 +498,7 @@
                     templateUrl: '../views/misc/signin.html',
                     data: {title: 'Login'},
                     controller: "loginCtrl",
-                    resolve: load(['scripts/controllers/login.js?random=' + randval])
+                    resolve: load(['scripts/controllers/login.js?random=' + randval,'scripts/services/authentication.js?random=' + randval])
                 })
                 .state('access.signup', {
                     url: '/signup',
@@ -511,6 +511,20 @@
                 .state('access.lockme', {
                     url: '/lockme',
                     templateUrl: '../views/misc/lockme.html'
+                })
+                .state('app.page.add_users', {
+                    url: '/addusers',
+                    templateUrl: '../views/page/user/adduser.html',
+                    data: {title: 'Add Users'},
+                    controller: "userCtrl",
+                    resolve: load(['scripts/controllers/user.js?random=' + randval,'scripts/services/userservice.js?random=' + randval, 'mgcrea.ngStrap', 'angularFileUpload'])
+                })
+                .state('app.page.view_users', {
+                    url: '/view_users',
+                    templateUrl: '../views/page/user/view_user.html',
+                    data: {title: 'All Users'},
+                    controller: "userCtrl",
+                    resolve: load(['scripts/controllers/user.js?random=' + randval,'scripts/services/userservice.js?random=' + randval, 'mgcrea.ngStrap', 'angularFileUpload'])
                 })
                 ;
 
