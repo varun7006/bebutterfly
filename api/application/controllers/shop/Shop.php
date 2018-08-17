@@ -9,22 +9,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class User extends MY_Controller {
+class Shop extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model("user/userModel", "modelObj");
+        $this->load->model("shop/shopModel", "modelObj");
 //        $this->load->model("core/coreModel", "coreObj");
     }
 
     public function index() {
-        $this->load->view('navigation/header');
-        $this->load->view('navigation/navigation');
         $this->load->view('user/user_view');
     }
 
-    public function getUserList() {
-        $userList = $this->modelObj->getUserList();
+    public function getShopList() {
+        $userList = $this->modelObj->getShopList();
         if (count($userList) > 0) {
             echo json_encode(array("status" => "SUCCESS", "value" => $userList, "msg" => "user details are present."));
         } else {
@@ -32,11 +30,13 @@ class User extends MY_Controller {
         }
     }
 
-    public function addNewUserView() {
-
-        $this->load->view('navigation/header');
-        $this->load->view('navigation/navigation');
-        $this->load->view('user/add_user_view');
+    public function getShopOwnerList() {
+        $ownerList = $this->modelObj->getShopOwnerList();
+        if (count($ownerList) > 0) {
+            echo json_encode(array("status" => "SUCCESS", "value" => $ownerList, "msg" => "user details are present."));
+        } else {
+            echo json_encode(array("status" => "ERR", "value" => "-1", "msg" => "No user details are present."));
+        }
     }
 
     public function generateUserExcel() {
@@ -88,19 +88,17 @@ class User extends MY_Controller {
         }
     }
 
-    public function saveNewUser() {
+    public function saveNewShop() {
 
-        $dataArr = json_decode($this->input->raw_input_stream, TRUE)['user_data'];
+        $dataArr = json_decode($this->input->raw_input_stream, TRUE)['shop_data'];
         if (count($dataArr) > 0) {
-            if (isset($dataArr['password']) && !empty($dataArr['password'])) {
-                $dataArr['password'] = password_hash($dataArr['password'], PASSWORD_BCRYPT);
-                $dataArr['access_key'] = md5(uniqid(rand(), true));
+            if (isset($dataArr['name']) && !empty($dataArr['name']) && isset($dataArr['owner_id']) && !empty($dataArr['owner_id'])) {
+                $saveResult = $this->modelObj->saveNewShopDetails($dataArr);
+                echo json_encode(array("status" => "SUCCESS", "value" => $saveResult, "msg" => "Details Saved Successfully"));
             } else {
-                echo json_encode(array("status" => "ERR", "value" => "-1", "msg" => "Please fill password"));
+                echo json_encode(array("status" => "ERR", "value" => "-1", "msg" => "Please fill all the manadatory details"));
                 exit;
             }
-            $saveResult = $this->modelObj->saveNewUserDetails($dataArr);
-            echo json_encode(array("status" => "SUCCESS", "value" => $saveResult, "msg" => "Details Saved Successfully"));
         } else {
             echo json_encode(array("status" => "ERR", "value" => "-1", "msg" => "Please all the details"));
         }

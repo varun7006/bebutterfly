@@ -2,19 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/var/www/html/bebutterfly/views/page/user/adduser.html</file>
-            <file>file:/var/www/html/bebutterfly/api/application/models/login/LoginModel.php</file>
-            <file>file:/var/www/html/bebutterfly/api/application/models/user/UserModel.php</file>
-            <file>file:/var/www/html/bebutterfly/api/application/controllers/users/User.php</file>
-            <file>file:/var/www/html/bebutterfly/angular/scripts/services/authentication.js</file>
-            <file>file:/var/www/html/bebutterfly/angular/scripts/config.router.js</file>
-            <file>file:/var/www/html/bebutterfly/api/application/config/routes/users.php</file>
-            <file>file:/var/www/html/bebutterfly/api/application/controllers/login/Login.php</file>
-            <file>file:/var/www/html/bebutterfly/views/misc/signin.html</file>
-            <file>file:/var/www/html/bebutterfly/angular/scripts/controllers/login.js</file>
-            <file>file:/var/www/html/bebutterfly/angular/scripts/services/userservice.js</file>
-            <file>file:/var/www/html/bebutterfly/angular/scripts/controllers/user.js</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

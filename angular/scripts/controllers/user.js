@@ -19,8 +19,8 @@
             })
             .controller('userCtrl', userCtrl);
 
-    userCtrl.$inject = ['$scope', '$http', '$rootScope', '$localStorage', 'sessionService', '$state','toaster', 'UserService'];
-    function userCtrl($scope, $http, $rootScope, $localStorage, sessionService, $state,toaster, UserService) {
+    userCtrl.$inject = ['$scope', '$http', '$rootScope', '$localStorage', 'sessionService', '$state', 'toaster', 'UserService'];
+    function userCtrl($scope, $http, $rootScope, $localStorage, sessionService, $state, toaster, UserService) {
         $scope.user = {};
         $scope.userList = [];
         $scope.IsShopKeeper = false;
@@ -30,36 +30,37 @@
         $scope.saveUserBasicData = function () {
             $scope.dataLoading = true;
             UserService.saveUserData($scope.user.basic_data).success(function (response) {
-                if(response.status=='SUCCESS'){
+                if (response.status == 'SUCCESS') {
                     toaster.pop('success', "Success", response.msg);
-                }else{
+                } else {
                     toaster.pop('error', "Error", response.msg);
                 }
             }).error(function (response) {
                 toaster.pop('error', "Error", "There is some error. Contact Admin.");
             });
         };
-        
+
         $scope.getUserList = function () {
             $rootScope.spinner.on();
             UserService.getUserList().success(function (response) {
                 $rootScope.spinner.off();
-                if(response.status=='SUCCESS'){
+                if (response.status == 'SUCCESS') {
                     $scope.userList = response.value;
-                    toaster.pop('success', "Success", response.msg);
-                }else{
+                } else {
                     toaster.pop('error', "Error", response.msg);
                 }
             }).error(function (response) {
 //                $rootScope.spinner.off();
                 toaster.pop('error', "Error", "There is some error. Contact Admin.");
-            }).finally(function(){
+            }).finally(function () {
                 $rootScope.spinner.off();
             });
-            
+
+        }
+        if ($state.current.data.getUser == 'TRUE') {
+            $scope.getUserList();
         }
 
-        $scope.getUserList();
     }
 
 })();

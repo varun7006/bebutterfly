@@ -9,21 +9,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class User extends MY_Controller {
+class Product extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model("user/userModel", "modelObj");
+        $this->load->model("product/productModel", "modelObj");
 //        $this->load->model("core/coreModel", "coreObj");
     }
 
     public function index() {
-        $this->load->view('navigation/header');
-        $this->load->view('navigation/navigation');
         $this->load->view('user/user_view');
     }
 
-    public function getUserList() {
+    public function getShopList() {
         $userList = $this->modelObj->getUserList();
         if (count($userList) > 0) {
             echo json_encode(array("status" => "SUCCESS", "value" => $userList, "msg" => "user details are present."));
@@ -32,11 +30,13 @@ class User extends MY_Controller {
         }
     }
 
-    public function addNewUserView() {
-
-        $this->load->view('navigation/header');
-        $this->load->view('navigation/navigation');
-        $this->load->view('user/add_user_view');
+    public function getShopOwnerList() {
+        $ownerList = $this->modelObj->getShopOwnerList();
+        if (count($ownerList) > 0) {
+            echo json_encode(array("status" => "SUCCESS", "value" => $ownerList, "msg" => "user details are present."));
+        } else {
+            echo json_encode(array("status" => "ERR", "value" => "-1", "msg" => "unable to save new user."));
+        }
     }
 
     public function generateUserExcel() {
@@ -88,7 +88,7 @@ class User extends MY_Controller {
         }
     }
 
-    public function saveNewUser() {
+    public function saveNewShop() {
 
         $dataArr = json_decode($this->input->raw_input_stream, TRUE)['user_data'];
         if (count($dataArr) > 0) {

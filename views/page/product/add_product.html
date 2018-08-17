@@ -1,0 +1,72 @@
+<div style="min-height: 500px">
+    <div class="padding">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h2>Add Product Details</h2>
+                    </div>
+                    <div class="box-divider m-a-0"></div>
+                    <div class="box-body p-v-md">
+                        <div class="row row-sm">
+                            <div class="col-xs-4">
+                                <label>Prodcut Name</label>
+                                <input name="name" ng-model="shop.name" type="text" class="form-control" placeholder="Shop Name">
+                            </div>
+                            <div class="col-xs-4">
+                                <label>Product Code</label>
+                                <input name="name" ng-model="shop.gst_no" type="text" class="form-control" placeholder="GST No">
+                            </div>
+                            <div class="col-xs-4">
+                                <label>Brand</label>
+                                <select  ng-model="shop.owner_id" class="form-control input-c" ng-options="owner.id as owner.name for owner in shopOwnerList track by owner.id">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body p-v-md">
+                        <div class="row row-sm">
+                            <div class="col-xs-4">
+                                <label>Size</label>
+                                <input name="name" ng-model="shop.address_line_1" type="text" class="form-control" placeholder="Address Line 1">
+                            </div>
+                            <div class="col-xs-4">
+                                <label>Price</label>
+                                <input name="name" ng-model="shop.address_line_2" type="text" class="form-control" placeholder="Address Line 2">
+                            </div>
+                            <div class="col-xs-4">
+                                <label>Colours</label>
+                                <input name="name" ng-model="shop.address_line_3" type="text" class="form-control" placeholder="Address Line 3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body p-v-md">
+                        <div class="row row-sm">
+                            <div class="col-xs-4">
+                                <label>Category</label>
+                                <select  ng-model="shop.country_id" class="form-control input-c" ng-options="country.id as country.name for country in countryList track by country.id" ng-change="getStateList()">
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>Select State</label>
+                                <select  ng-model="shop.state_id" class="form-control input-c" ng-options="state.id as state.name for state in stateList track by state.id" ng-change="getCityList()">
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>Select City</label>
+                                <select  ng-model="shop.city_id" class="form-control input-c" ng-options="city.id as city.name for city in cityList track by city.id">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body p-v-md">
+                        <div class="row row-sm">
+                            <button type="submit" class="btn btn-info m-t" ng-click="saveShopData()">Save</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

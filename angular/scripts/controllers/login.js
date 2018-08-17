@@ -28,11 +28,12 @@
         $scope.login = function () {
             $scope.dataLoading = true;
             AuthenticationService.Login($scope.user.email, $scope.user.password, function(response) {
-                if(response.success) {
+                if(response.status=='SUCCESS') {
                     AuthenticationService.SetCredentials($scope.username, $scope.password);
-                    $state.go('/dashboard');
+                    alert("121")
+                    $state.go('app.dashboard');
                 } else {
-                    toaster.pop("error", "Error", "cfcrfr");
+                    toaster.pop("error", "Error", response.msg);
                     $scope.dataLoading = false;
                 }
             });
