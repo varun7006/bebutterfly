@@ -15,6 +15,14 @@ angular.module('app')
 
                         };
                         
+                        service.updateUserBasicData = function (userData,updateId) {
+                            var url = baseUrlApi + '/user/updateUser';
+                            
+                           return $http.post(url, {user_data: userData})
+                                    
+
+                        };
+                        
                         service.getUserList = function (userData) {
                             var url = baseUrlApi + '/user/getuserlist';
                             

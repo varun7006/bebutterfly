@@ -9,26 +9,41 @@ angular.module('app')
 
                         service.getCountryData = function () {
                             var url = baseUrlApi + '/core/getcountrylist';
-                            
-                           return $http.post(url)
-                                    
+
+                            return $http.post(url)
+
 
                         };
-                        
+
                         service.getStateData = function (country_id) {
                             alert(country_id)
                             var url = baseUrlApi + '/core/getstatelist';
-                            
-                           return $http.post(url,{country_id: country_id})
-                                    
+
+                            return $http.post(url, {country_id: country_id})
+
 
                         };
-                        
+
                         service.getCityData = function (state_id) {
                             var url = baseUrlApi + '/core/getcitylist';
-                            
-                           return $http.post(url,{state_id: state_id})
-                                    
+
+                            return $http.post(url, {state_id: state_id})
+
+
+                        };
+
+                        service.getCategoryData = function () {
+                            var url = baseUrlApi + '/core/getcategorylist';
+
+                            return $http.get(url)
+
+                        };
+
+                        service.getBrandData = function () {
+                            var url = baseUrlApi + '/core/getbrandlist';
+
+                            return $http.get(url)
+
 
                         };
 

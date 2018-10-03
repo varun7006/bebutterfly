@@ -19,21 +19,21 @@
             })
             .controller('productCtrl', productCtrl);
 
-    productCtrl.$inject = ['$scope', '$http', '$rootScope', '$localStorage', 'sessionService', '$state', 'toaster', 'ProductService', 'CoreService'];
-    function productCtrl($scope, $http, $rootScope, $localStorage, sessionService, $state, toaster, ProductService,CoreService) {
-        $scope.shop = {};
+    productCtrl.$inject = ['$scope', '$http', '$rootScope', '$localStorage', 'sessionService', '$state', 'toaster', 'ProductService', 'CoreService','ShopService'];
+    function productCtrl($scope, $http, $rootScope, $localStorage, sessionService, $state, toaster, ProductService,CoreService,ShopService) {
+        $scope.product = {};
         $scope.shopList = [];
-        $scope.countryList = [];
-        $scope.shopOwnerList = [];
-        $scope.stateList = [];
-        $scope.cityList = [];
+        $scope.productList = [];
+        $scope.productOwnerList = [];
+        $scope.brandList = [];
+        $scope.categoryList = [];
         $scope.IsShopKeeper = false;
         $scope.errorMsg = null;
         // reset login status
 //        AuthenticationService.ClearCredentials();
-        $scope.saveShopData = function () {
+        $scope.saveProductData = function () {
             
-            ProductService.saveProductData($scope.shop).success(function (response) {
+            ProductService.saveProductData($scope.product).success(function (response) {
                 if (response.status == 'SUCCESS') {
                     toaster.pop('success', "Success", response.msg);
                 } else {
@@ -50,7 +50,7 @@
             ProductService.getProductList().success(function (response) {
                 $rootScope.spinner.off();
                 if (response.status == 'SUCCESS') {
-                    $scope.shopList = response.value;
+                    $scope.productList = response.value;
                 } else {
                     toaster.pop('error', "Error", response.msg);
                 }
@@ -66,7 +66,7 @@
         $scope.getShopOwnerList = function () {
             ProductService.getShopOwnerList().success(function (response) {
                 if (response.status == 'SUCCESS') {
-                    $scope.shopOwnerList = response.value;
+                    $scope.productOwnerList = response.value;
                 } else {
                     toaster.pop('error', "Error", response.msg);
                 }
@@ -75,11 +75,31 @@
             });
         };
         
-        $scope.getCountryList = function () {
+        $scope.getShopList = function () {
             
-            CoreService.getCountryData().success(function (response) {
+            $rootScope.spinner.on();
+            ShopService.getShopList().success(function (response) {
+                $rootScope.spinner.off();
                 if (response.status == 'SUCCESS') {
-                    $scope.countryList = response.value;
+                    $scope.shopList = response.value;
+                } else {
+                    toaster.pop('error', "Error", response.msg);
+                }
+            }).error(function (response) {
+//                $rootScope.spinner.off();
+                toaster.pop('error', "Error", "There is some error. Contact Admin.");
+            }).finally(function () {
+                $rootScope.spinner.off();
+            });
+
+        }
+        
+      
+        
+        $scope.getBrandData = function () {
+            CoreService.getBrandData().success(function (response) {
+                if (response.status == 'SUCCESS') {
+                    $scope.brandList = response.value;
                 } else {
                     toaster.pop('error', "Error", response.msg);
                 }
@@ -88,10 +108,10 @@
             });
         };
         
-        $scope.getStateList = function () {
-            CoreService.getStateData($scope.shop.country_id).success(function (response) {
+        $scope.getCategoryData = function () {
+            CoreService.getCategoryData().success(function (response) {
                 if (response.status == 'SUCCESS') {
-                    $scope.stateList = response.value;
+                    $scope.categoryList = response.value;
                 } else {
                     toaster.pop('error', "Error", response.msg);
                 }
@@ -99,26 +119,14 @@
                 toaster.pop('error', "Error", "There is some error. Contact Admin.");
             });
         };
-        
-        $scope.getCityList = function () {
-            CoreService.getCityData($scope.shop.state_id).success(function (response) {
-                if (response.status == 'SUCCESS') {
-                    $scope.cityList = response.value;
-                } else {
-                    toaster.pop('error', "Error", response.msg);
-                }
-            }).error(function (response) {
-                toaster.pop('error', "Error", "There is some error. Contact Admin.");
-            });
-        };
-        
-        if ($state.current.data.getShop == 'TRUE') {
+        if ($state.current.data.getProduct == 'TRUE') {
             $scope.getProductList();
         }
-//        else{
-//             $scope.getCountryList();
-//             $scope.getShopOwnerList();
-//        }
+        else{
+            $scope.getShopList();
+             $scope.getCategoryData();
+             $scope.getBrandData();
+        }
 
     }
 

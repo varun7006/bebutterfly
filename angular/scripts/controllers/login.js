@@ -30,7 +30,6 @@
             AuthenticationService.Login($scope.user.email, $scope.user.password, function(response) {
                 if(response.status=='SUCCESS') {
                     AuthenticationService.SetCredentials($scope.username, $scope.password);
-                    alert("121")
                     $state.go('app.dashboard');
                 } else {
                     toaster.pop("error", "Error", response.msg);

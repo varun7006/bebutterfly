@@ -3,7 +3,7 @@
 class UserModel extends CI_Model {
 
     public function getUserList() {
-        $this->db->select("a.id,concat(a.first_name,a.last_name) as name,a.email,a.mobile_no,a.user_type");
+        $this->db->select("a.id,concat(a.first_name,a.last_name) as name,a.first_name,a.last_name,a.email,a.mobile_no,a.user_type");
         $this->db->from("user_details as a");
         $this->db->where("a.status","TRUE");
         $result = $this->db->get()->result_array();

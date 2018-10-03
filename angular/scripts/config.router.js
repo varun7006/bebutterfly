@@ -559,14 +559,14 @@
                     templateUrl: '../views/page/product/add_product.html',
                     data: {title: 'Add Product Details',getProduct:'FALSE'},
                     controller: "productCtrl",
-                    resolve: load(['scripts/controllers/products.js?random=' + randval,'scripts/services/productsservice.js?random=' + randval,'scripts/services/coreservice.js?random=' + randval, 'mgcrea.ngStrap', 'angularFileUpload'])
+                    resolve: load(['scripts/controllers/products.js?random=' + randval,'scripts/services/productsservice.js?random=' + randval,'scripts/services/coreservice.js?random=' + randval,'scripts/services/shopservice.js?random=' + randval, 'mgcrea.ngStrap', 'angularFileUpload'])
                 })
                 .state('app.products.view_products', {
                     url: '/view_products',
                     templateUrl: '../views/page/product/view_product.html',
                     data: {title: 'All Products',getProduct:'TRUE'},
                     controller: "productCtrl",
-                    resolve: load(['scripts/controllers/products.js?random=' + randval,'scripts/services/productsservice.js?random=' + randval,'scripts/services/coreservice.js?random=' + randval, 'mgcrea.ngStrap', 'angularFileUpload'])
+                    resolve: load(['scripts/controllers/products.js?random=' + randval,'scripts/services/productsservice.js?random=' + randval,'scripts/services/coreservice.js?random=' + randval,'scripts/services/shopservice.js?random=' + randval, 'mgcrea.ngStrap', 'angularFileUpload'])
                 })
                 ;
 

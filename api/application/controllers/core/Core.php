@@ -61,5 +61,15 @@ class Core extends MY_Controller {
         $stateList = $this->modelObj->getCityList($stateId);
         echo json_encode($stateList);
     }
+    
+    public function getBrandList() {
+        $result = $this->modelObj->getBrandList();
+        echo json_encode($result);
+    }
+    
+    public function getCategoryList() {
+        $result = $this->modelObj->getCategoryList();
+        echo json_encode($result);
+    }
 
 }

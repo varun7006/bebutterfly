@@ -13,93 +13,29 @@ class Product extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
+//        echo 'cd';exit;
         $this->load->model("product/productModel", "modelObj");
-//        $this->load->model("core/coreModel", "coreObj");
+        $this->load->model("core/coreModel", "coreObj");
     }
 
     public function index() {
         $this->load->view('user/user_view');
     }
 
-    public function getShopList() {
-        $userList = $this->modelObj->getUserList();
+    public function getProductList() {
+        $userList = $this->modelObj->getProductList();
         if (count($userList) > 0) {
-            echo json_encode(array("status" => "SUCCESS", "value" => $userList, "msg" => "user details are present."));
+            echo json_encode(array("status" => "SUCCESS", "value" => $userList, "msg" => "Product details are present."));
         } else {
-            echo json_encode(array("status" => "ERR", "value" => "-1", "msg" => "unable to save new user."));
+            echo json_encode(array("status" => "ERR", "value" => "-1", "msg" => "No Porduct Found."));
         }
     }
 
-    public function getShopOwnerList() {
-        $ownerList = $this->modelObj->getShopOwnerList();
-        if (count($ownerList) > 0) {
-            echo json_encode(array("status" => "SUCCESS", "value" => $ownerList, "msg" => "user details are present."));
-        } else {
-            echo json_encode(array("status" => "ERR", "value" => "-1", "msg" => "unable to save new user."));
-        }
-    }
+    public function saveNewProduct() {
 
-    public function generateUserExcel() {
-        require_once APPPATH . "core/phpspreadsheet/vendor/autoload.php";
-        $userList = $this->modelObj->getUserList();
-
-        if ($userList['status'] == 'SUCCESS' && $userList['value']['count'] > 0) {
-            $spreadsheet = new Spreadsheet();
-            $row = 1;
-            $col = 0;
-            $headingArr = array("S.No", "Name", "Email", "Website", "Phone No", "Adddress", "Comment");
-            foreach ($headingArr as $key => $value) {
-                $spreadsheet->setActiveSheetIndex(0)->setCellValueByColumnAndRow($col, $row, $value);
-                $col++;
-            }
-            $row++;
-            foreach ($userList['value']['list'] as $key => $value) {
-                $col = 0;
-                $spreadsheet->setActiveSheetIndex(0)->setCellValueByColumnAndRow($col, $row, ($key + 1));
-                $col++;
-                $spreadsheet->setActiveSheetIndex(0)->setCellValueByColumnAndRow($col, $row, $value['name']);
-                $col++;
-                $spreadsheet->setActiveSheetIndex(0)->setCellValueByColumnAndRow($col, $row, $value['email']);
-                $col++;
-                $spreadsheet->setActiveSheetIndex(0)->setCellValueByColumnAndRow($col, $row, $value['website']);
-                $col++;
-                $spreadsheet->setActiveSheetIndex(0)->setCellValueByColumnAndRow($col, $row, $value['mobile_no']);
-                $col++;
-                $spreadsheet->setActiveSheetIndex(0)->setCellValueByColumnAndRow($col, $row, $value['address']);
-                $col++;
-                $spreadsheet->setActiveSheetIndex(0)->setCellValueByColumnAndRow($col, $row, $value['comment']);
-                $col++;
-                $row++;
-            }
-
-
-            $Excel_writer = new Xlsx($spreadsheet);
-            $fileName = 'exported_clients.xlsx';
-            if (ob_get_contents())
-                ob_end_clean();
-            header('Content-type: application/vnd.ms-excel');
-            header("Content-Disposition: attachment;filename=exported_clients.xlsx");
-            header("Cache-Control: max-age=0");
-            $Excel_writer->save('php://output');
-            exit;
-        }else {
-            echo "No Client Found";
-            exit;
-        }
-    }
-
-    public function saveNewShop() {
-
-        $dataArr = json_decode($this->input->raw_input_stream, TRUE)['user_data'];
+        $dataArr = json_decode($this->input->raw_input_stream, TRUE)['product_data'];
         if (count($dataArr) > 0) {
-            if (isset($dataArr['password']) && !empty($dataArr['password'])) {
-                $dataArr['password'] = password_hash($dataArr['password'], PASSWORD_BCRYPT);
-                $dataArr['access_key'] = md5(uniqid(rand(), true));
-            } else {
-                echo json_encode(array("status" => "ERR", "value" => "-1", "msg" => "Please fill password"));
-                exit;
-            }
-            $saveResult = $this->modelObj->saveNewUserDetails($dataArr);
+            $saveResult = $this->modelObj->saveNewProduct($dataArr);
             echo json_encode(array("status" => "SUCCESS", "value" => $saveResult, "msg" => "Details Saved Successfully"));
         } else {
             echo json_encode(array("status" => "ERR", "value" => "-1", "msg" => "Please all the details"));

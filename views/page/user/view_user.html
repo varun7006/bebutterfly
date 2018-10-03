@@ -24,6 +24,46 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-9 col-lg-10 light lt bg-auto" ng-show="editStatus == true ">
+                <form role="form" class="p-a-md col-md-6">
+                    <!--          <div class="form-group">
+                                <label>Profile picture</label>
+                                <div class="form-file">
+                                  <input type="file">
+                                  <button class="btn white">Upload new picture</button>
+                                </div>
+                              </div>-->
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input name="first_name" type="text" class="form-control" ng-model="user.first_name">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input name="last_name" type="text" class="form-control" ng-model="user.last_name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input name="email" type="email" class="form-control" ng-model="user.email">
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile No</label>
+                        <input name="mobile_no" type="text" class="form-control" ng-model="user.mobile_no">
+                    </div>
+                    <div class="form-group">
+                        <label>User Type</label>
+                        <select  ng-model="user.user_type" class="form-control input-c">
+                            <option value="" >Select Region</option>
+                            <option value="ADMIN" ng-selected="user.user_type=='ADMIN'">Admin</option>
+                            <option value="SUB-ADMIN" ng-selected="user.user_type=='SUB-ADMIN'">Sub-Admin</option>
+                            <option value="SHOPOWNER" ng-selected="user.user_type=='SHOPOWNER'">Shop Owner</option>
+                            <option value="CUSTOMER" ng-selected="user.user_type=='CUSTOMER'">Customer</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-info m-t" ng-click="updateUserBasicData()">Update</button>
+                    <button type="submit" class="btn btn-danger m-t" ng-click="cancelEditUser()">Cancel</button>
+                </form>
+            
+    </div>
         <div class="table-responsive">
             <table class="table table-striped b-t">
                 <thead>
@@ -46,22 +86,14 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.user_type }}</td>
                         <td>
-                            <a href class="active"><i class="fa fa-times text-danger none"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="ui-check m-a-0"><input type="checkbox" name="post[]"><i class="dark-white"></i></label></td>
-                        <td>Videodown</td>
-                        <td>4c</td>
-                        <td>Jul 1, 2013</td>
-                        <td>
-                            <a href class="active"><i class="fa fa-times text-danger none"></i></a>
+                            <a href class="active" ng-click="deleteUser()"><i class="fa fa-times text-danger none"></i></a>
+                            <a href class="active" ng-click="editUser($index)"><i class="fa fa-pencil none"></i></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <footer class="dker p-a">
+<!--        <footer class="dker p-a">
             <div class="row">
                 <div class="col-sm-4 hidden-xs">
                     <select class="input-sm form-control w-sm inline v-middle">
@@ -87,6 +119,6 @@
                     </ul>
                 </div>
             </div>
-        </footer>
+        </footer>-->
     </div>
 </div>

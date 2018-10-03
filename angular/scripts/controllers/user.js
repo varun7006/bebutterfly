@@ -25,6 +25,7 @@
         $scope.userList = [];
         $scope.IsShopKeeper = false;
         $scope.errorMsg = null;
+        $scope.editStatus = false;
         // reset login status
 //        AuthenticationService.ClearCredentials();
         $scope.saveUserBasicData = function () {
@@ -46,6 +47,52 @@
                 $rootScope.spinner.off();
                 if (response.status == 'SUCCESS') {
                     $scope.userList = response.value;
+                } else {
+                    toaster.pop('error', "Error", response.msg);
+                }
+            }).error(function (response) {
+//                $rootScope.spinner.off();
+                toaster.pop('error', "Error", "There is some error. Contact Admin.");
+            }).finally(function () {
+                $rootScope.spinner.off();
+            });
+
+        }
+
+        $scope.editUser = function (index) {
+            $scope.editStatus = true;
+            $scope.user = {};
+            $scope.user.first_name = $scope.userList[index].first_name;
+            $scope.user.last_name = $scope.userList[index].last_name;
+            $scope.user.mobile_no = $scope.userList[index].mobile_no;
+            $scope.user.email = $scope.userList[index].email;
+            $scope.user.user_type = $scope.userList[index].user_type;
+        }
+
+        $scope.updateUserBasicData = function () {
+            $rootScope.spinner.on();
+            UserService.updateUserBasicData($scope.user).success(function (response) {
+                $rootScope.spinner.off();
+                if (response.status == 'SUCCESS') {
+
+                } else {
+                    toaster.pop('error', "Error", response.msg);
+                }
+            }).error(function (response) {
+//                $rootScope.spinner.off();
+                toaster.pop('error', "Error", "There is some error. Contact Admin.");
+            }).finally(function () {
+                $rootScope.spinner.off();
+            });
+
+        }
+
+        $scope.deleteUser = function () {
+            $rootScope.spinner.on();
+            UserService.deleteUser().success(function (response) {
+                $rootScope.spinner.off();
+                if (response.status == 'SUCCESS') {
+
                 } else {
                     toaster.pop('error', "Error", response.msg);
                 }

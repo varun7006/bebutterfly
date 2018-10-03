@@ -33,26 +33,30 @@
                                 <input type="checkbox"><i></i>
                             </label>
                         </th>
+                        <th>Product Name</th>
+                        <th>Product Code</th>
                         <th>Shop Name</th>
-                        <th>GST No</th>
-                        <th>Owner Name</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Country</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>GST(in %)</th>
+                        <th>Discount (in %)</th>
+                        <th>Category</th>
+                        <th>Brand</th>
                         <th style="width:50px;"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="shop in shopList track by $index" ng-if="shopList.length > 0">
+                    <tr ng-repeat="product in productList track by $index" ng-if="productList.length > 0">
                         <td><label class="ui-check m-a-0"><input type="checkbox" name="post[]"><i class="dark-white"></i></label></td>
-                        <td>{{ shop.name }}</td>
-                        <td>{{ shop.gst_no }}</td>
-                        <td>{{ shop.owner_name }}</td>
-                        <td>{{ shop.shop_address }}</td>
-                        <td>{{ shop.country_name }}</td>
-                        <td>{{ shop.state_name }}</td>
-                        <td>{{ shop.city_name }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.code }}</td>
+                        <td>{{ product.shop_name }}</td>
+                        <td>{{ product.size }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.gst }}</td>
+                        <td>{{ product.discount }}</td>
+                        <td>{{ product.category_name }}</td>
+                        <td>{{ product.brand_name }}</td>
                         <td>
                             <a href class="active"><i class="fa fa-times text-danger none"></i></a>
                         </td>

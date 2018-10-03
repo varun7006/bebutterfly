@@ -54,6 +54,30 @@ class CoreModel extends CI_Model {
             return array("status" => "ERR", "value" => array(), "msg" => "No City Found");
         }
     }
+    
+    public function getBrandList() {
+        $this->db->select("id,name");
+        $this->db->from("brands");
+        $this->db->where("tstatus", "TRUE");
+        $result = $this->db->get()->result_array();
+        if (count($result) > 0) {
+            return array("status" => "SUCCESS", "value" => $result, "msg" => "Brand List is present");
+        } else {
+            return array("status" => "ERR", "value" => array(), "msg" => "No Brand Found");
+        }
+    }
+    
+    public function getCategoryList() {
+        $this->db->select("id,name");
+        $this->db->from("category");
+        $this->db->where("tstatus", "TRUE");
+        $result = $this->db->get()->result_array();
+        if (count($result) > 0) {
+            return array("status" => "SUCCESS", "value" => $result, "msg" => "category List is present");
+        } else {
+            return array("status" => "ERR", "value" => array(), "msg" => "No category Found");
+        }
+    }
 
     public function excelUpload() {
         if (!empty($_FILES)) {

@@ -1,31 +1,25 @@
 <?php
-
+///var/www/html/bebutterfly/api/application/models/product/productModel.php
 class productModel extends CI_Model {
 
-    public function getUserList() {
-        $this->db->select("a.id,concat(a.first_name,a.last_name) as name,a.email,a.mobile_no,a.user_type");
-        $this->db->from("user_details as a");
-        $this->db->where("a.status","TRUE");
-        $result = $this->db->get()->result_array();
-        return $result;
-    }
-    
-    public function getShopOwnerList() {
-        $this->db->select("a.id,concat(a.first_name,a.last_name)");
-        $this->db->from("user_details as a");
-        $this->db->where("a.status","TRUE");
-        $this->db->where("a.user_details","SHOPOWNER");
+    public function getProductList() {
+        $this->db->select("a.*,b.name as shop_name,c.name as category_name,d.name as brand_name");
+        $this->db->from("product_details as a");
+        $this->db->join("shop_details as b","a.shop_id=b.id");
+        $this->db->join("category as c","a.category_id=c.id","LEFT");
+        $this->db->join("brands as d","a.brand_id=d.id","LEFT");
+        $this->db->where("a.tstatus","TRUE");
         $result = $this->db->get()->result_array();
         return $result;
     }
 
-    public function saveNewUserDetails($dataArr) {
-        $result = $this->db->insert("user_details", $dataArr);
+    public function saveNewProduct($dataArr) {
+        $result = $this->db->insert("product_details", $dataArr);
         $insertId = $this->db->insert_id();
         if (count($result) > 0) {
-            return array("status" => "SUCCESS", "value" => $insertId, "msg" => "user details saved successfully.");
+            return array("status" => "SUCCESS", "value" => $insertId, "msg" => "product details saved successfully.");
         } else {
-            return array("status" => "ERR", "value" => "-1", "msg" => "unable to save new user.");
+            return array("status" => "ERR", "value" => "-1", "msg" => "unable to save new product.");
         }
     }
 

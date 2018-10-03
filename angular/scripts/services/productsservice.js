@@ -7,16 +7,16 @@ angular.module('app')
                     function (Base64, $http, $cookieStore, $rootScope, $timeout) {
                         var service = {};
 
-                        service.saveProductData = function (shopData) {
-                            var url = baseUrlApi + '/shop/savenewshop';
+                        service.saveProductData = function (productData) {
+                            var url = baseUrlApi + '/product/savenewproduct';
 
-                            return $http.post(url, {shop_data: shopData})
+                            return $http.post(url, {product_data: productData})
 
 
                         };
 
                         service.getProductList = function (userData) {
-                            var url = baseUrlApi + '/shop/getshoplist';
+                            var url = baseUrlApi + '/product/getproductlist';
 
                             return $http.get(url)
 
@@ -24,7 +24,7 @@ angular.module('app')
                         };
 
                         service.getShopOwnerList = function (username, password) {
-                            var url = baseUrlApi + '/shop/getshopownerlist';
+                            var url = baseUrlApi + '/product/getproductownerlist';
 
                             return $http.get(url)
                         };
